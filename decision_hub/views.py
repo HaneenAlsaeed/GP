@@ -60,6 +60,36 @@ def projects_list_view(request):
 
 
 @login_required(login_url="login")
+def project_create_page_view(request):
+    """
+    Dedicated page view for creating a new project workspace.
+    """
+    if request.method == "POST":
+        form = ProjectForm(request.POST)
+        if form.is_valid():
+            project = form.save(commit=False)
+            project.owner = request.user
+            project.save()
+
+            log_activity(
+                user=request.user,
+                action_type="CREATE_PROJECT",
+                description=f"Created project '{project.title}'",
+                project=project
+            )
+            messages.success(request, f"Project '{project.title}' created successfully!")
+            return redirect("decision_hub:project_detail", project_id=project.id)
+    else:
+        form = ProjectForm()
+
+    return render(request, "decision_hub/project_create.html", {
+        "form": form,
+        "page_title": "Create New Project Workspace"
+    })
+
+
+
+@login_required(login_url="login")
 def project_detail_view(request, project_id):
     """
     Project workspace page displaying decision cards, status filters, live search, and decision creation form.

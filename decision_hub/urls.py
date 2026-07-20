@@ -9,9 +9,11 @@ urlpatterns = [
 
     # Projects Management
     path("projects/", views.projects_list_view, name="projects_list"),
+    path("projects/create/", views.project_create_page_view, name="project_create_page"),
     path("projects/<int:project_id>/", views.project_detail_view, name="project_detail"),
     path("projects/<int:project_id>/edit/", views.project_edit_view, name="project_edit"),
     path("projects/<int:project_id>/delete/", views.project_delete_view, name="project_delete"),
+
 
     # Decision Management
     path("projects/<int:project_id>/decisions/create/", views.decision_create_view, name="decision_create"),

@@ -1,0 +1,36 @@
+{% extends "decision_hub/layout.html" %}
+
+{% block title %}Create New Project Workspace - AI Decision Hub{% endblock %}
+{% block header_title %}Create New Project Workspace{% endblock %}
+
+{% block body %}
+<div class="container-fluid p-0">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+            <div class="card border-0 shadow-sm rounded-4 bg-white">
+                <div class="card-header bg-transparent border-bottom px-4 pt-4 pb-3">
+                    <h5 class="fw-bold text-dark m-0"><i class="bi bi-folder-plus text-primary me-2"></i>New Project Workspace Form</h5>
+                    <p class="text-secondary small mb-0">Define the project title and description to organize evaluation decisions</p>
+                </div>
+                <form action="{% url 'decision_hub:project_create_page' %}" method="post">
+                    {% csrf_token %}
+                    <div class="card-body p-4">
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold text-dark">Project Title</label>
+                            {{ form.title }}
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold text-dark">Project Description</label>
+                            {{ form.description }}
+                        </div>
+                    </div>
+                    <div class="card-footer bg-transparent border-top px-4 py-3 d-flex justify-content-end gap-2">
+                        <a href="{% url 'decision_hub:projects_list' %}" class="btn btn-light rounded-pill px-4">Cancel</a>
+                        <button type="submit" class="btn btn-primary rounded-pill px-4 fw-bold">Create Project Workspace</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

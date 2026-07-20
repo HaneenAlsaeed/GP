@@ -12,10 +12,10 @@
             <h4 class="fw-bold text-dark m-0">Projects Directory</h4>
             <p class="text-secondary small mb-0">Manage organizational project workspaces and decision pipelines</p>
         </div>
-        <button class="btn btn-primary rounded-pill px-4 fw-semibold shadow-sm d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#newProjectModal">
+        <a href="{% url 'decision_hub:project_create_page' %}" class="btn btn-primary rounded-pill px-4 fw-semibold shadow-sm d-flex align-items-center gap-2">
             <i class="bi bi-plus-circle-fill"></i>
             <span>Create New Project</span>
-        </button>
+        </a>
     </div>
 
     <!-- Projects Grid -->
@@ -78,14 +78,15 @@
                     <i class="bi bi-folder-plus display-3 text-secondary opacity-50 mb-3"></i>
                     <h5 class="fw-bold text-dark">No projects created yet</h5>
                     <p class="text-secondary mb-4">Start by creating your first project workspace to evaluate decisions.</p>
-                    <button class="btn btn-primary rounded-pill px-4 fw-semibold shadow-sm" data-bs-toggle="modal" data-bs-target="#newProjectModal">
+                    <a href="{% url 'decision_hub:project_create_page' %}" class="btn btn-primary rounded-pill px-4 fw-semibold shadow-sm">
                         <i class="bi bi-plus-circle-fill me-1"></i> Create First Project
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
         {% endfor %}
     </div>
+
 
 </div>
 {% endblock %}
