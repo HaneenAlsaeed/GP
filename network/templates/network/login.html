@@ -1,0 +1,51 @@
+{% extends "network/layout.html" %}
+
+{% block title %}Log In / Network{% endblock %}
+
+{% block body %}
+<div class="row justify-content-center py-4">
+    <div class="col-12 col-sm-10 col-md-6 col-lg-5">
+        <div class="card border-0 shadow-lg rounded-4 overflow-hidden auth-card">
+            <div class="card-body p-4 p-sm-5">
+                <div class="text-center mb-4">
+                    <div class="brand-badge-lg bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3 shadow">
+                        <i class="bi bi-person-circle fs-2"></i>
+                    </div>
+                    <h3 class="fw-bold text-dark mb-1">Welcome Back</h3>
+                    <p class="text-secondary small">Sign in to your Network account</p>
+                </div>
+
+                {% if message %}
+                <div class="alert alert-danger alert-dismissible fade show rounded-3 border-0 shadow-sm small d-flex align-items-center gap-2 mb-4" role="alert">
+                    <i class="bi bi-exclamation-triangle-fill fs-5 flex-shrink-0"></i>
+                    <div>{{ message }}</div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endif %}
+
+                <form action="{% url 'login' %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-floating mb-3">
+                        <input autofocus class="form-control rounded-3 border-secondary-subtle" type="text" name="username" id="floatingUsername" placeholder="Username" required>
+                        <label for="floatingUsername"><i class="bi bi-person me-1"></i> Username</label>
+                    </div>
+
+                    <div class="form-floating mb-4">
+                        <input class="form-control rounded-3 border-secondary-subtle" type="password" name="password" id="floatingPassword" placeholder="Password" required>
+                        <label for="floatingPassword"><i class="bi bi-lock me-1"></i> Password</label>
+                    </div>
+
+                    <button class="btn btn-primary w-100 py-3 rounded-3 fw-bold text-white shadow-sm mb-3" type="submit">
+                        Log In <i class="bi bi-arrow-right-short fs-5 ms-1"></i>
+                    </button>
+                </form>
+
+                <div class="text-center border-top pt-3">
+                    <span class="text-secondary small">Don't have an account?</span>
+                    <a href="{% url 'register' %}" class="fw-semibold text-primary text-decoration-none ms-1">Register here</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

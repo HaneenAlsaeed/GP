@@ -1,0 +1,61 @@
+{% extends "network/layout.html" %}
+
+{% block title %}Register / Network{% endblock %}
+
+{% block body %}
+<div class="row justify-content-center py-4">
+    <div class="col-12 col-sm-10 col-md-6 col-lg-5">
+        <div class="card border-0 shadow-lg rounded-4 overflow-hidden auth-card">
+            <div class="card-body p-4 p-sm-5">
+                <div class="text-center mb-4">
+                    <div class="brand-badge-lg bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center mb-3 shadow">
+                        <i class="bi bi-person-plus-fill fs-2"></i>
+                    </div>
+                    <h3 class="fw-bold text-dark mb-1">Join Network</h3>
+                    <p class="text-secondary small">Create your account to start sharing</p>
+                </div>
+
+                {% if message %}
+                <div class="alert alert-danger alert-dismissible fade show rounded-3 border-0 shadow-sm small d-flex align-items-center gap-2 mb-4" role="alert">
+                    <i class="bi bi-exclamation-triangle-fill fs-5 flex-shrink-0"></i>
+                    <div>{{ message }}</div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endif %}
+
+                <form action="{% url 'register' %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-floating mb-3">
+                        <input autofocus class="form-control rounded-3 border-secondary-subtle" type="text" name="username" id="floatingRegUsername" placeholder="Username" required>
+                        <label for="floatingRegUsername"><i class="bi bi-person me-1"></i> Username</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input class="form-control rounded-3 border-secondary-subtle" type="email" name="email" id="floatingRegEmail" placeholder="Email Address">
+                        <label for="floatingRegEmail"><i class="bi bi-envelope me-1"></i> Email address (optional)</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input class="form-control rounded-3 border-secondary-subtle" type="password" name="password" id="floatingRegPassword" placeholder="Password" required>
+                        <label for="floatingRegPassword"><i class="bi bi-lock me-1"></i> Password</label>
+                    </div>
+
+                    <div class="form-floating mb-4">
+                        <input class="form-control rounded-3 border-secondary-subtle" type="password" name="confirmation" id="floatingRegConfirm" placeholder="Confirm Password" required>
+                        <label for="floatingRegConfirm"><i class="bi bi-shield-check me-1"></i> Confirm Password</label>
+                    </div>
+
+                    <button class="btn btn-primary w-100 py-3 rounded-3 fw-bold text-white shadow-sm mb-3" type="submit">
+                        Create Account <i class="bi bi-arrow-right-short fs-5 ms-1"></i>
+                    </button>
+                </form>
+
+                <div class="text-center border-top pt-3">
+                    <span class="text-secondary small">Already have an account?</span>
+                    <a href="{% url 'login' %}" class="fw-semibold text-primary text-decoration-none ms-1">Log In</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
