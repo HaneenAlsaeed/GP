@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'network',
+    'decision_hub',
 ]
+
 
 AUTH_USER_MODEL = 'network.User'
 
@@ -119,3 +121,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+# Media files configuration for Decision Hub file attachments
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+

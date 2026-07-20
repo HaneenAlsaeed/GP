@@ -1,0 +1,74 @@
+{% extends "decision_hub/layout.html" %}
+
+{% block title %}Starred Favorites - AI Decision Hub{% endblock %}
+{% block header_title %}Starred & Bookmarked Decisions{% endblock %}
+
+{% block body %}
+<div class="container-fluid p-0">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h4 class="fw-bold text-dark m-0">Starred Favorites</h4>
+            <p class="text-secondary small mb-0">Quick access to important bookmarked decisions across projects</p>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        {% for fav in favorites %}
+        <div class="col-12 col-md-6 col-xl-4">
+            <div class="card border-0 shadow-sm rounded-4 h-100 decision-card bg-white transition-all">
+                <div class="card-body p-4 d-flex flex-column">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <span class="badge bg-{{ fav.decision.category.badge_color|default:'secondary' }}-subtle text-{{ fav.decision.category.badge_color|default:'secondary' }} rounded-pill px-3 py-1.5 fw-semibold small">
+                            <i class="bi {{ fav.decision.category.icon_class|default:'bi-folder' }} me-1"></i> {{ fav.decision.category.name|default:"General" }}
+                        </span>
+
+                        <button class="btn btn-link text-warning p-0 star-favorite-btn" data-decision-id="{{ fav.decision.id }}" title="Unstar Decision">
+                            <i class="bi bi-star-fill fs-5 star-icon"></i>
+                        </button>
+                    </div>
+
+                    <h5 class="fw-bold text-dark mb-2 mt-1">{{ fav.decision.title }}</h5>
+                    <span class="text-secondary small d-block mb-2"><i class="bi bi-folder2 me-1"></i>Project: {{ fav.decision.project.title }}</span>
+                    <p class="text-secondary small flex-grow-1 mb-3">{{ fav.decision.description|truncatewords:18 }}</p>
+
+                    <!-- Risk & Status Badges Bar -->
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        {% if fav.decision.risk_level == 'CRITICAL' %}
+                            <span class="badge bg-danger rounded-pill px-2.5 py-1">Critical Risk</span>
+                        {% elif fav.decision.risk_level == 'HIGH' %}
+                            <span class="badge bg-warning text-dark rounded-pill px-2.5 py-1">High Risk</span>
+                        {% elif fav.decision.risk_level == 'MEDIUM' %}
+                            <span class="badge bg-info text-dark rounded-pill px-2.5 py-1">Medium Risk</span>
+                        {% else %}
+                            <span class="badge bg-success rounded-pill px-2.5 py-1">Low Risk</span>
+                        {% endif %}
+
+                        <span class="badge bg-primary-subtle text-primary rounded-pill px-2.5 py-1 ms-auto">{{ fav.decision.get_status_display }}</span>
+                    </div>
+
+                    <!-- Footer Action -->
+                    <div class="border-top pt-3 d-flex justify-content-between align-items-center mt-auto">
+                        <span class="text-secondary small"><i class="bi bi-clock me-1"></i>Starred {{ fav.created_at|date:"b d, Y" }}</span>
+                        <a href="{% url 'decision_hub:decision_detail' decision_id=fav.decision.id %}" class="btn btn-outline-primary btn-sm rounded-pill px-3">
+                            View Details <i class="bi bi-arrow-right ms-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="card border-0 shadow-sm rounded-4 py-5 text-center bg-white my-3">
+                <div class="card-body">
+                    <i class="bi bi-star display-3 text-secondary opacity-50 mb-3"></i>
+                    <h5 class="fw-bold text-dark">No starred decisions yet</h5>
+                    <p class="text-secondary mb-0">Star important decisions in your project workspace for quick access here.</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "decision_hub/layout.html" %}
+
+{% block title %}Delete Decision - AI Decision Hub{% endblock %}
+{% block header_title %}Confirm Decision Deletion{% endblock %}
+
+{% block body %}
+<div class="container-fluid p-0">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-6">
+            <div class="card border-0 shadow-sm rounded-4 bg-white text-center p-4">
+                <div class="card-body">
+                    <i class="bi bi-exclamation-triangle-fill text-danger display-3 mb-3"></i>
+                    <h4 class="fw-bold text-dark">Delete Decision Evaluation?</h4>
+                    <p class="text-secondary mb-4">Are you sure you want to delete decision <strong>"{{ decision.title }}"</strong>? This action cannot be undone and will permanently remove all associated discussion notes and attachments.</p>
+                    <form action="{% url 'decision_hub:decision_delete' decision_id=decision.id %}" method="post">
+                        {% csrf_token %}
+                        <div class="d-flex justify-content-center gap-3">
+                            <a href="{% url 'decision_hub:decision_detail' decision_id=decision.id %}" class="btn btn-light rounded-pill px-4">Cancel</a>
+                            <button type="submit" class="btn btn-danger rounded-pill px-4 fw-bold">Yes, Delete Decision</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
