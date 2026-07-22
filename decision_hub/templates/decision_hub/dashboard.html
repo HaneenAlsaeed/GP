@@ -1,0 +1,213 @@
+{% extends "decision_hub/layout.html" %}
+
+{% block title %}Dashboard Overview - AI Decision Hub{% endblock %}
+{% block header_title %}Executive Dashboard Overview{% endblock %}
+
+{% block body %}
+<div class="container-fluid p-0">
+
+    <!-- KPI Metric Cards Grid -->
+    <div class="row g-3 mb-4">
+        <!-- Total Projects -->
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="card border-0 shadow-sm rounded-4 stat-card bg-white">
+                <div class="card-body p-4 d-flex justify-content-between align-items-center">
+                    <div>
+                        <span class="text-secondary small fw-semibold text-uppercase tracking-wider d-block mb-1">Total Projects</span>
+                        <h2 class="fw-bold text-dark m-0">{{ stats.total_projects }}</h2>
+                    </div>
+                    <div class="stat-icon bg-primary-subtle text-primary rounded-3 p-3">
+                        <i class="bi bi-kanban fs-3"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Decisions -->
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="card border-0 shadow-sm rounded-4 stat-card bg-white">
+                <div class="card-body p-4 d-flex justify-content-between align-items-center">
+                    <div>
+                        <span class="text-secondary small fw-semibold text-uppercase tracking-wider d-block mb-1">Total Decisions</span>
+                        <h2 class="fw-bold text-dark m-0">{{ stats.total_decisions }}</h2>
+                    </div>
+                    <div class="stat-icon bg-info-subtle text-info rounded-3 p-3">
+                        <i class="bi bi-clipboard-data fs-3"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- High Risk Decisions -->
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="card border-0 shadow-sm rounded-4 stat-card bg-white">
+                <div class="card-body p-4 d-flex justify-content-between align-items-center">
+                    <div>
+                        <span class="text-secondary small fw-semibold text-uppercase tracking-wider d-block mb-1">High / Critical Risk</span>
+                        <h2 class="fw-bold text-danger m-0">{{ stats.high_risk_decisions }}</h2>
+                    </div>
+                    <div class="stat-icon bg-danger-subtle text-danger rounded-3 p-3">
+                        <i class="bi bi-exclamation-octagon fs-3"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pending Decisions -->
+        <div class="col-12 col-sm-6 col-xl-3">
+            <div class="card border-0 shadow-sm rounded-4 stat-card bg-white">
+                <div class="card-body p-4 d-flex justify-content-between align-items-center">
+                    <div>
+                        <span class="text-secondary small fw-semibold text-uppercase tracking-wider d-block mb-1">Pending Evaluation</span>
+                        <h2 class="fw-bold text-warning m-0">{{ stats.pending_decisions }}</h2>
+                    </div>
+                    <div class="stat-icon bg-warning-subtle text-warning rounded-3 p-3">
+                        <i class="bi bi-hourglass-split fs-3"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Row -->
+    <div class="row g-4">
+
+        <!-- Left Column: Risk Distribution & Recent Decisions -->
+        <div class="col-12 col-lg-8">
+
+            <!-- Risk Distribution Card -->
+            <div class="card border-0 shadow-sm rounded-4 mb-4 bg-white">
+                <div class="card-header bg-transparent border-0 pt-4 px-4 pb-0 d-flex justify-content-between align-items-center">
+                    <h6 class="fw-bold text-dark m-0"><i class="bi bi-shield-shaded text-primary me-2"></i>Risk Evaluation Matrix</h6>
+                    <span class="badge bg-light text-secondary border">Analytics</span>
+                </div>
+                <div class="card-body p-4">
+                    <div class="row g-3 text-center">
+                        <div class="col-3">
+                            <div class="p-3 rounded-3 bg-success-subtle border border-success-subtle">
+                                <span class="d-block text-success fw-bold fs-4">{{ stats.risk_distribution.Low }}</span>
+                                <span class="small text-success fw-semibold">Low Risk</span>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="p-3 rounded-3 bg-info-subtle border border-info-subtle">
+                                <span class="d-block text-info fw-bold fs-4">{{ stats.risk_distribution.Medium }}</span>
+                                <span class="small text-info fw-semibold">Medium Risk</span>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="p-3 rounded-3 bg-warning-subtle border border-warning-subtle">
+                                <span class="d-block text-warning fw-bold fs-4">{{ stats.risk_distribution.High }}</span>
+                                <span class="small text-warning fw-semibold">High Risk</span>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="p-3 rounded-3 bg-danger-subtle border border-danger-subtle">
+                                <span class="d-block text-danger fw-bold fs-4">{{ stats.risk_distribution.Critical }}</span>
+                                <span class="small text-danger fw-semibold">Critical Risk</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Decisions Card -->
+            <div class="card border-0 shadow-sm rounded-4 bg-white">
+                <div class="card-header bg-transparent border-0 pt-4 px-4 pb-0 d-flex justify-content-between align-items-center">
+                    <h6 class="fw-bold text-dark m-0"><i class="bi bi-file-earmark-text text-primary me-2"></i>Recent Decisions</h6>
+                    <a href="{% url 'decision_hub:projects_list' %}" class="btn btn-link btn-sm text-decoration-none fw-semibold">View All Projects</a>
+                </div>
+                <div class="card-body p-4">
+                    {% if stats.recent_decisions %}
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="table-light small text-uppercase text-secondary">
+                                <tr>
+                                    <th>Decision Title</th>
+                                    <th>Project</th>
+                                    <th>Category</th>
+                                    <th>Risk Level</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for d in stats.recent_decisions %}
+                                <tr>
+                                    <td class="fw-semibold text-dark">{{ d.title }}</td>
+                                    <td class="text-secondary small">{{ d.project.title }}</td>
+                                    <td>
+                                        <span class="badge bg-{{ d.category.badge_color|default:'secondary' }}-subtle text-{{ d.category.badge_color|default:'secondary' }} rounded-pill px-2 py-1">
+                                            {{ d.category.name|default:"General" }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        {% if d.risk_level == 'CRITICAL' %}
+                                            <span class="badge bg-danger rounded-pill px-2">Critical</span>
+                                        {% elif d.risk_level == 'HIGH' %}
+                                            <span class="badge bg-warning text-dark rounded-pill px-2">High</span>
+                                        {% elif d.risk_level == 'MEDIUM' %}
+                                            <span class="badge bg-info text-dark rounded-pill px-2">Medium</span>
+                                        {% else %}
+                                            <span class="badge bg-success rounded-pill px-2">Low</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-light text-dark border rounded-pill px-2">{{ d.get_status_display }}</span>
+                                    </td>
+                                    <td>
+                                        <a href="{% url 'decision_hub:decision_detail' decision_id=d.id %}" class="btn btn-outline-primary btn-sm rounded-pill px-3">Open</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <div class="text-center py-4 text-secondary">
+                        <i class="bi bi-inbox fs-1 d-block mb-2 opacity-50"></i>
+                        <p class="mb-0">No decisions created yet in your workspace.</p>
+                        <a href="{% url 'decision_hub:projects_list' %}" class="btn btn-primary btn-sm rounded-pill mt-3">Create First Project</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Right Column: Recent Activity Audit Stream -->
+        <div class="col-12 col-lg-4">
+            <div class="card border-0 shadow-sm rounded-4 bg-white h-100">
+                <div class="card-header bg-transparent border-0 pt-4 px-4 pb-0 d-flex justify-content-between align-items-center">
+                    <h6 class="fw-bold text-dark m-0"><i class="bi bi-clock-history text-primary me-2"></i>Audit Activity Stream</h6>
+                    <a href="{% url 'decision_hub:activity_log' %}" class="text-decoration-none small fw-semibold">View Audit</a>
+                </div>
+                <div class="card-body p-4">
+                    {% if stats.recent_activities %}
+                    <div class="activity-timeline">
+                        {% for act in stats.recent_activities %}
+                        <div class="timeline-item d-flex gap-3 mb-3">
+                            <div class="timeline-icon bg-primary-subtle text-primary rounded-circle p-2 flex-shrink-0 d-flex align-items-center justify-content-center" style="width: 36px; height: 36px;">
+                                <i class="bi bi-activity small"></i>
+                            </div>
+                            <div class="flex-grow-1 overflow-hidden">
+                                <span class="d-block text-dark small fw-semibold">{{ act.description }}</span>
+                                <span class="text-secondary small d-block" style="font-size: 0.75rem;">{{ act.timestamp|date:"b d, g:i A" }}</span>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <div class="text-center py-5 text-secondary">
+                        <i class="bi bi-journal-x fs-1 opacity-50 mb-2 d-block"></i>
+                        <p class="small mb-0">No recent activity recorded.</p>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

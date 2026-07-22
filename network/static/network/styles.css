@@ -1,0 +1,182 @@
+/* Network - Threads / X (Twitter) Modern UI Design System */
+
+:root {
+    --primary-blue: #2563eb;
+    --primary-blue-hover: #1d4ed8;
+    --primary-blue-light: #eff6ff;
+    --bg-body: #f8fafc;
+    --card-bg: #ffffff;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --border-light: #e2e8f0;
+    --heart-red: #ef4444;
+    --card-radius: 16px;
+    --transition-smooth: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Layout Utilities */
+.max-w-content {
+    max-width: 760px;
+}
+
+.tracking-tight {
+    letter-spacing: -0.03em;
+}
+
+.transition-all {
+    transition: var(--transition-smooth);
+}
+
+/* Navigation & Brand */
+.brand-badge {
+    width: 34px;
+    height: 34px;
+}
+
+.brand-badge-lg {
+    width: 64px;
+    height: 64px;
+}
+
+.hover-bg:hover {
+    background-color: var(--primary-blue-light);
+    color: var(--primary-blue) !important;
+}
+
+.hover-underline:hover {
+    text-decoration: underline !important;
+}
+
+/* Avatars */
+.avatar-sm {
+    width: 32px;
+    height: 32px;
+    font-size: 0.85rem;
+}
+
+.avatar-md {
+    width: 44px;
+    height: 44px;
+    font-size: 1.1rem;
+}
+
+.avatar-lg {
+    width: 84px;
+    height: 84px;
+}
+
+.bg-gradient {
+    background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+}
+
+/* Cards & Composer */
+.post-card {
+    border-radius: var(--card-radius) !important;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-light) !important;
+    transition: var(--transition-smooth);
+    animation: fadeIn 0.35s ease-out forwards;
+}
+
+.post-card:hover {
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.06), 0 8px 10px -6px rgba(0, 0, 0, 0.04) !important;
+}
+
+.composer-card {
+    border: 1px solid rgba(37, 99, 235, 0.15) !important;
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+}
+
+.resize-none {
+    resize: none;
+}
+
+.resize-none:focus {
+    box-shadow: none !important;
+}
+
+/* Like Button & Animated Heart */
+.like-btn {
+    transition: var(--transition-smooth);
+    cursor: pointer;
+}
+
+.like-btn:hover {
+    color: var(--heart-red) !important;
+}
+
+.like-btn.liked {
+    color: var(--heart-red) !important;
+}
+
+.like-btn.liked .like-icon {
+    animation: heartPop 0.35s cubic-bezier(0.17, 0.89, 0.32, 1.49);
+}
+
+/* Edit Textarea */
+.edit-textarea:focus {
+    border-color: var(--primary-blue) !important;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1) !important;
+}
+
+/* Auth Cards */
+.auth-card {
+    border-radius: 20px !important;
+    border: 1px solid var(--border-light) !important;
+}
+
+/* Profile Header */
+.profile-banner {
+    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+}
+
+/* Keyframes */
+@keyframes heartPop {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.4);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* Pagination Custom Styling */
+.page-link {
+    transition: var(--transition-smooth);
+}
+
+.page-link:hover:not(.disabled) {
+    background-color: var(--primary-blue);
+    color: #ffffff !important;
+    transform: translateY(-1px);
+}
