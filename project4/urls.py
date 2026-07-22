@@ -21,8 +21,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("", include("network.urls")),
     path("network/", include("network.urls")),
-    path("", include("decision_hub.urls")),
 ]
 
 if settings.DEBUG:
